@@ -2,3 +2,6 @@ gunicorn==19.9.0
 requests==2.19.1
 Quandl==2.8.8
 WTForms==2.2.1
+bokeh==0.13.0
+numpy==1.15.1
+pandas==0.23.4

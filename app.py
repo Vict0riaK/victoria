@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 class ReusableForm(Form):
     name = TextField('Name:',)
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route('/')
 def index():
     return render_template('index.html')
     # form = ReusableForm(request.form)
@@ -28,6 +28,11 @@ def index():
     #
     # return render_template('input.html', form=form)
 
+@app.route('/result',methods = ['POST', 'GET'])
+def result():
+   if request.method == 'POST':
+      result = request.form
+      return render_template("result.html",result = result)
 
 
 @app.route('/about')

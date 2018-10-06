@@ -1,12 +1,30 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
 import quandl
+from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 
 app = Flask(__name__)
 
-@app.route('/')
+class ReusableForm(Form):
+    name = TextField('Name:', validators=[validators.required()])
+
+@app.route("/", methods=['GET', 'POST'])
 def index():
-  # return render_template('index.html')
-    print (mydata)
+    form = ReusableForm(request.form)
+    print form.errors
+    if request.method == 'POST':
+        name = request.form['name']
+        print name
+
+        if form.validate():
+            # Save the comment here.
+            flash('Hello ' + name)
+        else:
+            flash('All the form fields are required. ')
+
+    return render_template('input.html', form=form)
+  # return render_template('input.html')
+
+
 @app.route('/about')
 def about():
   return render_template('about.html')

@@ -1,4 +1,4 @@
 gunicorn==19.9.0
 requests==2.19.1
 Quandl==2.8.8
-wtform==s2.2.1
+wtform==2.2.1

@@ -3,8 +3,7 @@ import Quandl
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 import pandas as pd
 import numpy as np
-import bokeh.charts as bc
-from bokeh.resources import CDN
+from bokeh.plotting import figure
 from bokeh.embed import components
 
 app = Flask(__name__)
@@ -39,17 +38,14 @@ def result():
       startdate = result["start"]
       enddate = result["end"]
       mydata = Quandl.get("ZILLOW/C25709_ZRISFRR", authtoken="QT-coVZNkYPJCs6R9Tkj", startdate=startdate, enddate=enddate)
-      df = pd.DataFrame({
-                            'x': 2 * np.pi * i / 100,
-                            'sin': np.sin(2 * np.pi * i / 100),
-                            'cos': np.cos(2 * np.pi * i / 100),
-                        } for i in range(0, 101))
-      # Create the plot
-      plot = bc.Line(title='Triganometric fun!',
-                     data=df, x='x', ylabel='y')
-      # Generate the script and HTML for the plot
-      script, div = components(plot)
+      plot = figure(plot_height=300, sizing_mode='scale_width')
 
+      x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      y = [2 ** v for v in x]
+
+      plot.line(x, y, line_width=4)
+
+      script, div = components(plot)
       # INSERT CODE HERE WHICH PLOTS A DATA
 
 

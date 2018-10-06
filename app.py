@@ -37,21 +37,22 @@ def index():
 def result():
    if request.method == 'POST':
       result = request.form
-      # startdate = result["start"]
-      # enddate = result["end"]
-      # mydata = Quandl.get("ZILLOW/C25709_ZRISFRR", authtoken="QT-coVZNkYPJCs6R9Tkj", startdate=startdate, enddate=enddate)
-
+      startdate = result["start"]
+      enddate = result["end"]
+      mydata = Quandl.get("ZILLOW/C25709_ZRISFRR", authtoken="QT-coVZNkYPJCs6R9Tkj", startdate=startdate, enddate=enddate)
+      fig = figure(plot_width=600, plot_height=600)
+      fig = mydata.plot()
 
       # init a basic bar chart:
       # http://bokeh.pydata.org/en/latest/docs/user_guide/plotting.html#bars
-      fig = figure(plot_width=600, plot_height=600)
-      fig.vbar(
-          x=[1, 2, 3, 4],
-          width=0.5,
-          bottom=0,
-          top=[1.7, 2.2, 4.6, 3.9],
-          color='navy'
-      )
+
+      # fig.vbar(
+      #     x=[1, 2, 3, 4],
+      #     width=0.5,
+      #     bottom=0,
+      #     top=[1.7, 2.2, 4.6, 3.9],
+      #     color='navy'
+      # )
 
       # grab the static resources
       js_resources = INLINE.render_js()

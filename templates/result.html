@@ -1,19 +1,15 @@
 <!doctype html>
 <html>
   <head>
-    <!-- Bokeh includes-->
-<link
-    href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.13.min.css"
-    rel="stylesheet" type="text/css">
-<link
-    href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.13.min.css"
-    rel="stylesheet" type="text/css">
-
-<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.13.min.js"></script>
-<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.13.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Embed Demo</title>
+    {{ js_resources|indent(4)|safe }}
+    {{ css_resources|indent(4)|safe }}
+    {{ plot_script|indent(4)|safe }}
   </head>
    <body>
-
+   {{ plot_div|indent(4)|safe }}
       <table border = 1>
          {% for key, value in result.items() %}
 
@@ -24,9 +20,5 @@
 
          {% endfor %}
       </table>
-
-   {{ script|safe }}
-   {{ div|safe }}
-
    </body>
 </html>

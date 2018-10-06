@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, flash
-import quandl
+import Quandl
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 
 app = Flask(__name__)
@@ -31,5 +31,5 @@ def about():
 
 if __name__ == '__main__':
   app.run(port=33507)
-  mydata = quandl.get("ZILLOW/C25709_ZRISFRR", authtoken="QT-coVZNkYPJCs6R9Tkj")
+  mydata = Quandl.get("ZILLOW/C25709_ZRISFRR", authtoken="QT-coVZNkYPJCs6R9Tkj")
 

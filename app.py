@@ -11,22 +11,23 @@ class ReusableForm(Form):
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    form = ReusableForm(request.form)
-    print (form.errors)
-    if request.method == 'POST':
-        startdate = request.form['Start Date']
-        # enddate = request.form['End Date']
+    return render_template('input.html')
+    # form = ReusableForm(request.form)
+    # print (form.errors)
+    # if request.method == 'POST':
+    #     startdate = request.form['Start Date']
+    #     enddate = request.form['End Date']
+        #
+        # print (startdate)
+        #
+        # if form.validate():
+        #     Save the comment here.
+            # flash('Hello ' + startdate)
+        # else:
+        #     flash('All the form fields are required. ')
+    #
+    # return render_template('input.html', form=form)
 
-        print (startdate)
-
-        if form.validate():
-            # Save the comment here.
-            flash('Hello ' + startdate)
-        else:
-            flash('All the form fields are required. ')
-
-    return render_template('input.html', form=form)
-  # return render_template('input.html')
 
 
 @app.route('/about')

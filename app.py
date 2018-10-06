@@ -11,7 +11,7 @@ class ReusableForm(Form):
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template('input.html')
+    return render_template('index.html')
     # form = ReusableForm(request.form)
     # print (form.errors)
     # if request.method == 'POST':

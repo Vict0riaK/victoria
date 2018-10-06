@@ -40,7 +40,7 @@ def result():
       startdate = result["start"]
       enddate = result["end"]
       mydata = Quandl.get("ZILLOW/C25709_ZRISFRR", authtoken="QT-coVZNkYPJCs6R9Tkj", startdate=startdate, enddate=enddate)
-      fig = figure(plot_width=600, plot_height=600)
+      # fig = figure(plot_width=600, plot_height=600)
       fig = mydata.plot()
 
       # init a basic bar chart:

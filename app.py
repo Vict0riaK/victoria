@@ -1,6 +1,11 @@
 from flask import Flask, render_template, request, redirect, flash
 import Quandl
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
+import pandas as pd
+import numpy as np
+import bokeh.charts as bc
+from bokeh.resources import CDN
+from bokeh.embed import components
 
 app = Flask(__name__)
 
@@ -31,7 +36,28 @@ def index():
 def result():
    if request.method == 'POST':
       result = request.form
-      return render_template("result.html",result = result)
+      startdate = result["start"]
+      enddate = result["end"]
+      mydata = Quandl.get("ZILLOW/C25709_ZRISFRR", authtoken="QT-coVZNkYPJCs6R9Tkj", startdate=startdate, enddate=enddate)
+      df = pd.DataFrame({
+                            'x': 2 * np.pi * i / 100,
+                            'sin': np.sin(2 * np.pi * i / 100),
+                            'cos': np.cos(2 * np.pi * i / 100),
+                        } for i in range(0, 101))
+      # Create the plot
+      plot = bc.Line(title='Triganometric fun!',
+                     data=df, x='x', ylabel='y')
+      # Generate the script and HTML for the plot
+      script, div = components(plot)
+
+      # INSERT CODE HERE WHICH PLOTS A DATA
+
+
+
+
+      # END OF PLOTTING DATA
+
+      return render_template("result.html", result = result, script=script, div=div)
 
 
 @app.route('/about')
@@ -40,5 +66,5 @@ def about():
 
 if __name__ == '__main__':
   app.run(port=33507)
-  mydata = Quandl.get("ZILLOW/C25709_ZRISFRR", authtoken="QT-coVZNkYPJCs6R9Tkj")
+
 

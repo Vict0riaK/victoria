@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 from bokeh.plotting import figure
 from bokeh.embed import components
+import matplotlib.pyplot as plt
 
 # mydata = Quandl.get("ZILLOW/C25709_ZRISFRR", authtoken="QT-coVZNkYPJCs6R9Tkj")
 # df = pd.DataFrame(mydata)
@@ -25,7 +26,7 @@ p = figure(title='Stock prices',
            x_axis_label='date',
            x_axis_type='datetime')
 
-p.line(x=df['Date'].values, y=df['Value'].values,line_width=2,)
-p.show()
+p.line(x=df['Date'].values, y=df['Value'].values,)
+plt.show()
 
 pass

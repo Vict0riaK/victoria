@@ -57,7 +57,7 @@ def result():
                  x_axis_label='date',
                  x_axis_type='datetime')
 
-      p.line(x=df['Date'].values, y=df['Value'].values, line_width=2,)
+      p.line(x=df['Date'].values, y=df['Value'].values, line_width=2,legend='Close')
 
 
       # render template

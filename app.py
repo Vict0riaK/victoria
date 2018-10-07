@@ -16,7 +16,7 @@ app = Flask(__name__)
 class ReusableForm(Form):
     name = TextField('Name:',)
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
     # form = ReusableForm(request.form)
@@ -51,13 +51,14 @@ def result():
       a = raw_data.json()
       a1 = a['dataset']
       df = pd.DataFrame(a1['data'], columns=a1['column_names'])
-      df['Date'] = pd.to_datetime(df['Date'])
-
-      p = figure(title='Stock prices',
-                 x_axis_label='date',
-                 x_axis_type='datetime')
-
-      p.line(x=df['Date'].values, y=df['Value'].values, line_width=2,legend='Close')
+      p = df[['Date', 'Value']].plot('Date', figsize=(15, 8))
+      # df['Date'] = pd.to_datetime(df['Date'])
+      #
+      # p = figure(title='Stock prices',
+      #            x_axis_label='date',
+      #            x_axis_type='datetime')
+      #
+      # p.line(x=df['Date'].values, y=df['Value'].values, line_width=2,legend='Close')
 
 
       # render template

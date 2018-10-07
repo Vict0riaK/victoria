@@ -5,6 +5,7 @@ import numpy as np
 from bokeh.plotting import figure
 from bokeh.embed import components
 import matplotlib.pyplot as plt
+import datetime
 
 # mydata = Quandl.get("ZILLOW/C25709_ZRISFRR", authtoken="QT-coVZNkYPJCs6R9Tkj")
 # df = pd.DataFrame(mydata)
@@ -21,12 +22,14 @@ raw_data = session.get(api_url)
 a = raw_data.json()
 a1 = a['dataset']
 df = pd.DataFrame(a1['data'], columns=a1['column_names'])
-df['Date'] = pd.to_datetime(df['Date'])
-p = figure(title='Stock prices',
-           x_axis_label='date',
-           x_axis_type='datetime')
-
-p.line(x=df['Date'].values, y=df['Value'].values,)
-plt.show()
+p = df[['Date','Value']].plot('Date', figsize=(15,8))
+# df.set_index('Date')
+# df['Date'] = pd.to_datetime(df['Date'])
+# p = figure(title='Stock prices',
+#            x_axis_label='date',
+#            x_axis_type='datetime')
+#
+# p.line(x=df['Date'].values, y=df['Value'].values,)
+# plt.show()
 
 pass

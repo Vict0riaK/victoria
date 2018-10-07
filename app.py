@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, flash
+import requests
 import Quandl
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 import pandas as pd
@@ -39,30 +40,28 @@ def result():
    if request.method == 'POST':
       result = request.form
       startdate = result["start"]
+      print(startdate)
       enddate = result["end"]
       mydata = Quandl.get("ZILLOW/C25709_ZRISFRR", authtoken="QT-coVZNkYPJCs6R9Tkj")
-      df = pd.DataFrame(mydata)
-      # mydata = Quandl.get("ZILLOW/C25709_ZRISFRR", authtoken="QT-coVZNkYPJCs6R9Tkj", startdate=startdate, enddate=enddate)
-      # fig = figure(plot_width=600, plot_height=600)
-      fig = df.plot()
+      api_url = 'https://www.quandl.com/api/v3/datasets/ZILLOW/C25709_ZRISFRR.json?api_key=QT-coVZNkYPJCs6R9Tkj'
+      session = requests.Session()
+      session.mount('http://', requests.adapters.HTTPAdapter(max_retries=3))
+      raw_data = session.get(api_url)
 
-      # init a basic bar chart:
-      # http://bokeh.pydata.org/en/latest/docs/user_guide/plotting.html#bars
+      a = raw_data.json()
+      a1 = a['dataset']
+      df = pd.DataFrame(a1['data'], columns=a1['column_names'])
+      df['Date'] = pd.to_datetime(df['Date'])
 
-      # fig.vbar(
-      #     x=[1, 2, 3, 4],
-      #     width=0.5,
-      #     bottom=0,
-      #     top=[1.7, 2.2, 4.6, 3.9],
-      #     color='navy'
-      # )
+      p = figure(title='Stock prices',
+                 x_axis_label='date',
+                 x_axis_type='datetime')
 
-      # grab the static resources
-      js_resources = INLINE.render_js()
-      css_resources = INLINE.render_css()
+      p.line(x=df['Date'].values, y=df['Value'].values, line_width=2,)
+
 
       # render template
-      script, div = components(fig)
+      script, div = components(p)
 
       # INSERT CODE HERE WHICH PLOTS A DATA
 
@@ -71,10 +70,7 @@ def result():
 
       # END OF PLOTTING DATA
 
-      return render_template("result.html", result = result, plot_script=script,
-        plot_div=div,
-        js_resources=js_resources,
-        css_resources=css_resources,)
+      return render_template("result.html", plot_script=script, plot_div=div,)
 
 
 @app.route('/about')

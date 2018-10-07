@@ -4,7 +4,7 @@ Quandl==2.8.8
 WTForms==2.2.1
 bokeh==0.11.1
 numpy==1.15.1
-pandas==0.18.1
+pandas==0.23.4
 matplotlib==3.0.0
 Flask==0.10.1
 simplejson==3.8.0

@@ -51,6 +51,7 @@ def result():
       a = raw_data.json()
       a1 = a['dataset']
       df = pd.DataFrame(a1['data'], columns=a1['column_names'])
+      df.set_index('Date')
       df['Date'] = pd.to_datetime(df['Date'])
 
       p = figure(title='Stock prices',

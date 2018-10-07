@@ -2,7 +2,7 @@ import Quandl
 import requests
 import pandas as pd
 import numpy as np
-from bokeh.plotting import figure
+from bokeh.plotting import figure, show, output_file
 from bokeh.embed import components
 import matplotlib.pyplot as plt
 import datetime
@@ -22,14 +22,15 @@ raw_data = session.get(api_url)
 a = raw_data.json()
 a1 = a['dataset']
 df = pd.DataFrame(a1['data'], columns=a1['column_names'])
-p = df[['Date','Value']].plot('Date', figsize=(15,8))
-# df.set_index('Date')
-# df['Date'] = pd.to_datetime(df['Date'])
-# p = figure(title='Stock prices',
-#            x_axis_label='date',
-#            x_axis_type='datetime')
-#
-# p.line(x=df['Date'].values, y=df['Value'].values,)
-# plt.show()
+# p = df[['Date','Value']].plot('Date', figsize=(15,8))
+df.set_index('Date')
+df['Date'] = pd.to_datetime(df['Date'])
+output_file("datetime.html")
+p = figure(title='Stock prices',
+           x_axis_label='date',
+           x_axis_type='datetime')
+
+p.line(x=df['Date'].values, y=df['Value'].values,)
+show(p)
 
 pass

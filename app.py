@@ -37,7 +37,7 @@ def index():
 
 @app.route('/result',methods = ['POST', 'GET'])
 def result():
-   if request.method == 'POST':
+   # if request.method == 'POST':
       result = request.form
       startdate = result["start"]
       print(startdate)
@@ -51,14 +51,13 @@ def result():
       a = raw_data.json()
       a1 = a['dataset']
       df = pd.DataFrame(a1['data'], columns=a1['column_names'])
-      p = df[['Date', 'Value']].plot('Date', figsize=(15, 8))
-      # df['Date'] = pd.to_datetime(df['Date'])
-      #
-      # p = figure(title='Stock prices',
-      #            x_axis_label='date',
-      #            x_axis_type='datetime')
-      #
-      # p.line(x=df['Date'].values, y=df['Value'].values, line_width=2,legend='Close')
+      df['Date'] = pd.to_datetime(df['Date'])
+
+      p = figure(title='Stock prices',
+                 x_axis_label='date',
+                 x_axis_type='datetime')
+
+      p.line(x=df['Date'].values, y=df['Value'].values, line_width=2,legend='Close')
 
 
       # render template

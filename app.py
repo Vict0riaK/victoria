@@ -16,9 +16,14 @@ app = Flask(__name__)
 class ReusableForm(Form):
     name = TextField('Name:',)
 
-@app.route('/', methods=['GET'])
+@app.route('/')
+def main():
+  return redirect('/index1')
+
+
+@app.route('/index1', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return render_template('index1.html')
     # form = ReusableForm(request.form)
     # print (form.errors)
     # if request.method == 'POST':
@@ -35,7 +40,7 @@ def index():
     #
     # return render_template('input.html', form=form)
 
-@app.route('/result',methods = ['POST', 'GET'])
+@app.route('/result',methods = ['POST',])
 def result():
    # if request.method == 'POST':
       result = request.form

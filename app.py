@@ -7,7 +7,7 @@ from bokeh.plotting import figure
 from bokeh.embed import components
 from bokeh.resources import INLINE
 from bokeh.util.string import encode_utf8
-import matplotlib
+# import matplotlib
 
 app = Flask(__name__)
 
@@ -40,9 +40,11 @@ def result():
       result = request.form
       startdate = result["start"]
       enddate = result["end"]
-      mydata = Quandl.get("ZILLOW/C25709_ZRISFRR", authtoken="QT-coVZNkYPJCs6R9Tkj", startdate=startdate, enddate=enddate)
+      mydata = Quandl.get("ZILLOW/C25709_ZRISFRR", authtoken="QT-coVZNkYPJCs6R9Tkj")
+      df = pd.DataFrame(mydata)
+      # mydata = Quandl.get("ZILLOW/C25709_ZRISFRR", authtoken="QT-coVZNkYPJCs6R9Tkj", startdate=startdate, enddate=enddate)
       # fig = figure(plot_width=600, plot_height=600)
-      fig = mydata.plot()
+      fig = df.plot()
 
       # init a basic bar chart:
       # http://bokeh.pydata.org/en/latest/docs/user_guide/plotting.html#bars
